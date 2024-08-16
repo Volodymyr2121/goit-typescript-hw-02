@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ImageGallery from "../App/ImageGallery/ImageGallery";
+import ImageGallery from "./ImageGallery/ImageGallery";
 import fetchArtical from "../../articles-api";
 import SearchBar from "./SearchBar/SearchBar";
 import Loader from "./Loader/Loader";
@@ -8,21 +8,38 @@ import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./ImageModal/ImageModal";
 import {  toast, Toaster } from 'react-hot-toast';
 
+
+interface Image {
+    id: string;
+    urls: {
+        regular: string;
+        small: string;
+        thumb: string;
+    };
+    alt_description: string;
+}
+
+interface FetchData {
+  results: Image[];
+  total_pages: number;
+}
+
+
 export default function App() {
   
     
-    const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(100);
-  const [query, setQuery] = useState("");
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState(false);
-   const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [modalImageUrl, setModalImageUrl] = useState("");
-    const [modalAltDescription, setModalAltDescription] = useState("");
+    const [images, setImages] = useState<Image[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(100);
+  const [query, setQuery] = useState<string>("");
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+    const [modalImageUrl, setModalImageUrl] = useState<string>("");
+    const [modalAltDescription, setModalAltDescription] = useState<string>("");
 
 
-  const handleSearch = async (newQuery) => {
+  const handleSearch = async (newQuery: string) => {
     setImages([]);
     setPage(1);
     setQuery(newQuery);
@@ -35,7 +52,7 @@ export default function App() {
     }
   }
 
-   const openModal = (imageUrl, altDescription) => {
+   const openModal = (imageUrl: string, altDescription: string) => {
         setModalImageUrl(imageUrl);
         setModalAltDescription(altDescription);
         setModalIsOpen(true);
@@ -54,12 +71,12 @@ export default function App() {
       setLoader(true)
       try {
         setError(false)
-        const data = await fetchArtical(query, page);
+        const data: FetchData = await fetchArtical(query, page);
         setTotalPages(data.total_pages);
-         if (data.length === 0) {
+         if (data.results.length === 0) {
           toast.error("No images found for your search query");
         }
-        setImages((prevImages) => [...prevImages, ...data]);
+        setImages((prevImages) => [...prevImages, ...data.results]);
       } catch (error) {
           setError(true)
       } 
