@@ -1,0 +1,18 @@
+.buttonLoadMore {
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+    width: 100px;
+    height: 34px;
+    font-size: 16px;
+    color: antiquewhite;
+    background-color: blue;
+    border: 2px solid #383636;
+    border-radius: 6px;
+}
+
+.buttonLoadMore:hover {
+    color: fff;
+    background-color: green;
+    border: 2px solid #383636;
+}

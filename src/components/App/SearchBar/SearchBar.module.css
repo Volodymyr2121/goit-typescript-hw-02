@@ -1,0 +1,30 @@
+form{
+display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    position: relative;
+    background: blue    ;
+    padding: 10px 0;   
+}
+input{
+    width: 320px;
+        padding: 10px 40px 10px 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+}
+.searchButton{
+    position: absolute;
+        right: 40%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        height: 100%;
+}
+
+input:focus {
+    outline: none;
+}
